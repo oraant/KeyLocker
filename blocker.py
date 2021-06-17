@@ -5,8 +5,8 @@ from random import choices
 
 # 生成任务
 puzzle = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789' # 生成任务时，随机字符从这里挑选字符出题，用以拦截（不要有'] '，否则会扰乱判断正确答案时的split方法）
-length = 2 # 生成任务时，单次生成字符的长度
-times = 2 # 生成任务时，一共考验多少次（拆成这样是为了防止用OCR识别工具作弊，如有道截屏翻译）
+length = 10 # 生成任务时，单次生成字符的长度（最终作答时需要反序编写，这是为了防止用OCR识别工具作弊，如有道截屏翻译）
+times = 100 # 生成任务时，一共考验多少次（拆成这样也是为了防止用OCR识别工具作弊，如有道截屏翻译）
 
 # 配置解锁内容
 content = 'password' # 完成任务后，展示给用户的解锁内容
