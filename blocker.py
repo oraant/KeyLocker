@@ -7,7 +7,7 @@ from random import choices
 
 # 一，修改content、longtxt等，将主要内容替换为自己要加密的东西
 # 二，使用命令，将其编译为exe文件：pyinstaller -i icon.ico -Fw blocker.py
-# 三，测试生成的程序，放入不同的路径打开，保证没问题
+# 三，测试生成的程序，放入不同的路径打开，保证没问题，并生成多个不同难度的程序
 # 四，在版本管理中，直接用revert删除刚刚的改动，保证了密文只保存在刚才生成的程序中
 
 
