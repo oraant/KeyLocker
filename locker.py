@@ -58,12 +58,12 @@ root = Tk()
 left = times
 
 def gen_puzzle(): return '[%s/%s] '%(left, times) + ''.join(choices(puzzle, k=length))
-def get_puzzle(): return question.cget("text").split('] ')[1]
+def get_puzzle(): return question.cget("text").split('] ')[1][::-1]
 
 def match():
     global left
 
-    if not left: return button_text.set('说了别点我')
+    if not left: return root.destroy()
     if answer.get()!=get_puzzle(): return button_text.set('错了 重来')
 
     left -= 1
@@ -73,7 +73,7 @@ def match():
         button_text.set('对了 继续')
     else:
         question_text.set('解密成功')
-        button_text.set('自己去复制')
+        button_text.set('关闭 退出')
 
         answer_text.set(content)
         backup_text.set(longtxt.strip())
@@ -90,7 +90,7 @@ answer = Entry(root, textvariable=answer_text, borderwidth=2, relief="groove", f
 answer.grid(row=0, column=1, sticky='nswe', padx=(3,0), pady=3)
 
 button_text=StringVar()
-button_text.set('抄字 解锁')
+button_text.set('反序 抄写')
 button = Button(root, textvariable=button_text, borderwidth=2, relief="groove", font=('consola', 10), command=match)
 button.grid(row=0, column=2, sticky='nswe', padx=(3,3), pady=3)
 
@@ -99,5 +99,5 @@ backup_text.set('======================================================')
 backup = Label(root, textvariable=backup_text, borderwidth=2, relief="groove", font=('consola', 10))
 backup.grid(row=1, column=0, columnspan=3, sticky='nswe', padx=3, pady=(0,3))
 
-
+root.resizable(False, False)
 root.mainloop()
