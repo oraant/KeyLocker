@@ -99,5 +99,6 @@ backup_text.set('======================================================')
 backup = Label(root, textvariable=backup_text, borderwidth=2, relief="groove", font=('consola', 10))
 backup.grid(row=1, column=0, columnspan=3, sticky='nswe', padx=3, pady=(0,3))
 
+root.title('信息代价锁 - 非对称决策阻碍装置')
 root.resizable(False, False)
 root.mainloop()
