@@ -7,22 +7,30 @@ from datetime import datetime as dt
 
 
 # 一，修改seconds、content等，将主要内容替换为自己要加密的东西
-# 二，使用命令，将其编译为exe文件：pyinstaller -i icon.ico -Fw timer.py
-# 三，测试生成的程序，放入不同的路径打开，保证没问题，并生成多个不同难度的程序
-# 四，在版本管理中，直接用revert删除刚刚的改动，保证了密文只保存在刚才生成的程序中
+
+# 二，使用命令，将其编译为pyd文件：python build_pyd.py build_ext --inplace
+
+# 三，使用命令，将其编译为exe文件：pyinstaller -i icon.ico -Fw timer_main.py
+
+# 四，使用python pyinstxtractor.py timer_main.exe 解包，确保pyd优先py被导入
+
+# 五，测试生成的程序，放入不同的路径打开，保证没问题，并生成多个不同难度的程序
+
+# 六，在版本管理中，直接用revert删除刚刚的改动，保证了密文只保存在刚才生成的程序中
 
 
 # ■■■ 配置 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
 
-seconds = 3600 # 等待多久后展示内容
-content = 'password' # 等待完毕后，展示给用户的解锁内容
-weeks = [6,7] # 允许使用的星期
+seconds = 3 # 等待多久后展示内容
+content = ['p', 'a', 's', 's', 'w', 'o', 'r', 'd'] # 等待完毕后，展示给用户的解锁内容（以列表存储，防止反编译/反汇编）
+weeks = [1,2,3,4,5,6,7] # 允许使用的星期
 begin = '07:00' # 允许使用的开始时间
-end = '15:00' # 允许使用的结束时间
+end = '23:00' # 允许使用的结束时间
 
 
 # ■■■ 代码 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
 
 def T(string): return dt.strptime(string,'%H:%M').time()
 
@@ -47,7 +55,7 @@ class Window:
 
 
     def copy(self):
-        pyperclip.copy(self.content)
+        pyperclip.copy(''.join(self.content))
         self.btn_text.set('复制成功')
 
 
@@ -72,5 +80,5 @@ class Window:
         self.btn_text.set('点击复制')
         self.btn.configure(state="normal")
 
-
-Window(seconds, content, weeks, begin, end).start()
+def run():
+    Window(seconds, content, weeks, begin, end).start()
