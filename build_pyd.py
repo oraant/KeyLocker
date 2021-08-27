@@ -3,5 +3,5 @@ from Cython.Build import cythonize
 
 setup(
     name='any words.....',
-    ext_modules=cythonize(["timer.py",]),
+    ext_modules=cythonize(["blocker.py",]),
 )

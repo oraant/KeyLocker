@@ -5,10 +5,17 @@ from random import choices
 # ■■■ 说明 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
 
-# 一，修改content、longtxt等，将主要内容替换为自己要加密的东西
-# 二，使用命令，将其编译为exe文件：pyinstaller -i icon.ico -Fw blocker.py
-# 三，测试生成的程序，放入不同的路径打开，保证没问题，并生成多个不同难度的程序
-# 四，在版本管理中，直接用revert删除刚刚的改动，保证了密文只保存在刚才生成的程序中
+# 一，修改seconds、content等，将主要内容替换为自己要加密的东西
+
+# 二，使用命令，将其编译为pyd文件：python build_pyd.py build_ext --inplace
+
+# 三，使用命令，将其编译为exe文件：pyinstaller -i icon.ico -Fw blocker_main.py
+
+# 四，使用命令解包，确保pyd优先py被导入：python pyinstxtractor.py dist/blocker_main.exe
+
+# 五，测试生成的程序，放入不同的路径打开，保证没问题，并生成多个不同难度的程序
+
+# 六，在版本管理中，直接用revert删除刚刚的改动，保证了密文只保存在刚才生成的程序中
 
 
 # ■■■ 配置 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
@@ -20,7 +27,7 @@ length = 10 # 生成任务时，单次生成字符的长度（最终作答时需
 times = 100 # 生成任务时，一共考验多少次（拆成这样也是为了防止用OCR识别工具作弊，如有道截屏翻译）
 
 # 配置解锁内容
-content = 'password' # 完成任务后，展示给用户的解锁内容
+content = ['p', 'a', 's', 's', 'w', 'o', 'r', 'd'] # 完成任务后，展示给用户的解锁内容
 
 # 下面的longtxt是赠送的一段 10*5*2*5*2=1000 长度的随机字符，可用作其他密码。若以后想更换，随时可以用下面的代码再生成一次：
 # from random import choices; puzzle = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
@@ -86,7 +93,7 @@ def match():
         question_text.set('解密成功')
         button_text.set('关闭 退出')
 
-        answer_text.set(content)
+        answer_text.set(''.join(content))
         backup_text.set(longtxt.strip())
 
 
@@ -112,4 +119,4 @@ backup.grid(row=1, column=0, columnspan=3, sticky='nswe', padx=3, pady=(0,3))
 
 root.title('信息代价锁 - 非对称决策阻碍装置')
 root.resizable(False, False)
-root.mainloop()
+def run(): root.mainloop()
