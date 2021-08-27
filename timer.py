@@ -12,7 +12,7 @@ from datetime import datetime as dt
 
 # 三，使用命令，将其编译为exe文件：pyinstaller -i icon.ico -Fw timer_main.py
 
-# 四，使用python pyinstxtractor.py timer_main.exe 解包，确保pyd优先py被导入
+# 四，使用命令解包，确保pyd优先py被导入：python pyinstxtractor.py dist/timer_main.exe
 
 # 五，测试生成的程序，放入不同的路径打开，保证没问题，并生成多个不同难度的程序
 
